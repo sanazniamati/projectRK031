@@ -1,17 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Stage, Layer, Rect } from "react-konva";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const App = () => {
+  const handelMouseOver = (e) => {
+    const container = e.target.getStage().container();
+    container.style.cursor = "pointer";
+  };
+  const handelMouseLeave = (e) => {
+    const container = e.target.getStage().container();
+    container.style.cursor = "default";
+  };
+  return (
+    <Stage width={window.innerWidth} height={window.innerHeight}>
+      <Layer>
+        <Rect
+          x={200}
+          y={100}
+          width={100}
+          height={50}
+          fill={"#00D2FF"}
+          stroke={"black"}
+          strokeWidth={4}
+          draggable
+          onMouseEnter={handelMouseOver}
+          onMouseLeave={handelMouseLeave}
+        />
+      </Layer>
+    </Stage>
+  );
+};
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
